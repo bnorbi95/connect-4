@@ -11,7 +11,6 @@ import inet.Server;
 
 public class GameHandler implements NetworkHandler{
 	private NetworkNode network_node;
-	private int network_role;
 	
 	private MainWindow mw;
 	private GameWindow gw;
@@ -38,7 +37,6 @@ public class GameHandler implements NetworkHandler{
 			}
 			
 		}).start();
-		network_role = Network.ROLE_SERVER;
 	}
 
 	@Override
@@ -52,7 +50,6 @@ public class GameHandler implements NetworkHandler{
 			}
 			
 		}).start();
-		network_role = Network.ROLE_CLIENT;
 	}
 
 	@Override
@@ -65,7 +62,7 @@ public class GameHandler implements NetworkHandler{
 	 * Update game window
 	 */
 	@Override
-	public void onRecvPayload() {
+	public void onRecvPayload(Payload pl) {
 		// TODO Auto-generated method stub
 		
 	}

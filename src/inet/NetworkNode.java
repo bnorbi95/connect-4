@@ -14,8 +14,6 @@ public abstract class NetworkNode {
 	
 	protected NetworkHandler handler;
 	
-	protected String payload;
-	
 	public NetworkNode(NetworkHandler handler){
 		this(Network.DEFAULT_PORT, handler);
 	}
@@ -44,7 +42,7 @@ public abstract class NetworkNode {
 	}
 	
 	public void recvPayload() throws IOException {
-		payload = instream.readLine();
-		handler.onRecvPayload();
+		Payload payload = new Payload(instream.readLine());
+		handler.onRecvPayload(payload);
 	}
 }
