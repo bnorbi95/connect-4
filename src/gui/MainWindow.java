@@ -10,10 +10,20 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import game.GameInfo;
+import inet.Client;
+import inet.NetworkHandler;
+import inet.Server;
+
 public class MainWindow extends JFrame{
 	private JMenuBar menuBar;
+	private GameInfo info;
+	private NetworkHandler handler;
 	
-	public MainWindow(){
+	public MainWindow(NetworkHandler handler){
+		this.handler = handler;
+		this.info = new GameInfo();
+		//GUI
 		setTitle("Connect 4");
 		
 		generateLayout();
@@ -23,13 +33,34 @@ public class MainWindow extends JFrame{
 		
 		setSize(400,250);
 		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 	
 	private void generateLayout(){
 		setLayout(new GridLayout(1,2,5,5));
-		add(new JButton("New Game"));
-		add(new JButton("Join Game"));
+		JButton new_game_button = new JButton("New Game");
+		new_game_button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GameWindow gw = new GameWindow(new GameBoard(info));
+				handler.startServer();
+			}
+			
+		});
+		
+		JButton join_game_button = new JButton("Join Game");
+		join_game_button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				handler.startClient();
+			}
+			
+		});
+		add(new_game_button);
+		add(join_game_button);
 	}
 	
 	private JMenuBar generateMenuBar(){

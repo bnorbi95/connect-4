@@ -7,4 +7,7 @@ public class GameInfo {
 		this.height = height;
 		this.streak = streak;
 	}
+	public GameInfo() {
+		this(7,6,4);
+	}
 }

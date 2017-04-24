@@ -14,6 +14,10 @@ public class GameCell extends JPanel{
 		this.cell = cell;
 	}
 	
+	public Cell getCell(){
+		return cell;
+	}
+	
 	@Override 
     protected void paintComponent(Graphics g) {
       super.paintComponent(g);
