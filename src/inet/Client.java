@@ -36,4 +36,9 @@ public class Client {
 		instream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 	
+	public void sendPayload(Payload pl) {
+		outstream.write(pl.toString());
+		outstream.flush();
+	}
+	
 }

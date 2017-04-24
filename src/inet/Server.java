@@ -34,4 +34,8 @@ public class Server {
 		}
 	}
 	
+	public void sendPayload(Payload pl) {
+		outstream.write(pl.toString());
+		outstream.flush();
+	}
 }
