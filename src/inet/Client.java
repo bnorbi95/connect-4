@@ -1,44 +1,30 @@
 package inet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Enumeration;
 
-public class Client {	
-	private int port;
-	private Socket socket;
-	private BufferedReader instream;
-	private PrintWriter outstream;
-	
-	public Client(){
-		this(Network.DEFAULT_PORT);
+
+public class Client extends NetworkNode{	
+	public Client(NetworkHandler handler){
+		super(Network.DEFAULT_PORT, handler);
 	}
 	
-	public Client(int port){
-		this.port = port;
+	public Client(int port, NetworkHandler handler){
+		super(port, handler);
 	}
 	
-	public void connect(String hostIp) throws UnknownHostException, IOException{
-		if(hostIp.equals("")) {
-			hostIp = Network.LOCAL;
+	public void connect() {
+		createIOStreams();
+	}
+
+	@Override
+	protected void initializeSocket() {
+		try {
+			socket = new Socket(Network.LOCAL, port);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		socket = new Socket(hostIp, port);
-		outstream = new PrintWriter(socket.getOutputStream());
-		instream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-	}
-	
-	public void sendPayload(Payload pl) {
-		outstream.write(pl.toString());
-		outstream.flush();
 	}
 	
 }

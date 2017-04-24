@@ -1,41 +1,33 @@
 package inet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
-import java.net.Socket;
 
-public class Server {
-	private int port;
+public class Server extends NetworkNode{
 	private ServerSocket ssocket;
-	private Socket csocket;
-	private BufferedReader instream;
-	private PrintWriter outstream;
 	
-	public Server(){
-		this(Network.DEFAULT_PORT);
+	public Server(NetworkHandler listener){
+		this(Network.DEFAULT_PORT, listener);
 	}
 	
-	public Server(int port){
-		this.port = port;
+	public Server(int port, NetworkHandler handler){
+		super(port, handler);
 	}
 	
 	public void startGameServer(){
+		createIOStreams();
+		handler.onClientConnected();
+	}
+
+	@Override
+	protected void initializeSocket() {
 		try {
 			ssocket = new ServerSocket(port);
-			csocket = ssocket.accept();
-			outstream = new PrintWriter(csocket.getOutputStream());
-			instream = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
+			socket = ssocket.accept();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public void sendPayload(Payload pl) {
-		outstream.write(pl.toString());
-		outstream.flush();
+		
 	}
 }

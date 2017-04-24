@@ -1,66 +1,72 @@
 package game;
 
-import java.io.IOException;
-
+import gui.GameWindow;
 import gui.MainWindow;
 import inet.Client;
 import inet.Network;
 import inet.NetworkHandler;
+import inet.NetworkNode;
 import inet.Payload;
 import inet.Server;
 
 public class GameHandler implements NetworkHandler{
-	private Server srv;
-	private Client cnt;
+	private NetworkNode network_node;
 	private int network_role;
 	
+	private MainWindow mw;
+	private GameWindow gw;
+	
+	private GameInfo info;
+	private Grid grid;
+	
 	public GameHandler() {
-		srv = new Server();
-		cnt = new Client();
+		info = new GameInfo();
 	}
 	
 	public void run() {
-		MainWindow mw = new MainWindow(this);
+		mw = new MainWindow(this);
 	}
 
 	@Override
 	public void startServer() {
-		srv = new Server();
+		network_node = new Server((NetworkHandler) this);
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				srv = new Server();
-				srv.startGameServer();
+				((Server) network_node).startGameServer();
 			}
 			
 		}).start();
 		network_role = Network.ROLE_SERVER;
-		
 	}
 
 	@Override
 	public void startClient() {
-		cnt = new Client();
-		try {
-			cnt.connect("");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		network_node = new Client((NetworkHandler) this);
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				((Client) network_node).connect();
+			}
+			
+		}).start();
 		network_role = Network.ROLE_CLIENT;
 	}
 
 	@Override
-	public void sendPayload(Payload pl) {
-		if(network_role == Network.ROLE_SERVER) {
-			srv.sendPayload(pl);
-		} else if (network_role == Network.ROLE_CLIENT) {
-			cnt.sendPayload(pl);
-		}else {
-			// ROLE NOT INITIALIZED
-		}
+	public void onClientConnected() {
+		// TODO Auto-generated method stub
 		
 	}
-	
+
+	/**
+	 * Update game window
+	 */
+	@Override
+	public void onRecvPayload() {
+		// TODO Auto-generated method stub
+		
+	}
 }
