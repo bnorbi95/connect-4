@@ -2,21 +2,28 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
 import game.Cell;
+import inet.Payload;
 
-public class GameCell extends JPanel{
+public class GameCell extends JPanel implements MouseListener{
 	private Cell cell;
+	private GameBoard board;
 	
-	public GameCell(Cell cell){
+	public GameCell(Cell cell, GameBoard board){
+		this.addMouseListener(this);
+		this.board = board;
 		this.cell = cell;
 	}
 	
 	public Cell getCell(){
 		return cell;
 	}
+	
 	
 	@Override 
     protected void paintComponent(Graphics g) {
@@ -32,4 +39,33 @@ public class GameCell extends JPanel{
     		  (int)(size*this.getHeight()),
     		  0, 360);
     }
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		Payload pl = new Payload(0, board.getWindow().getMe().getRole(), getCell().column);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

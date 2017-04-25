@@ -11,18 +11,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import game.GameInfo;
+import game.GameListener;
+import game.Grid;
 import inet.Client;
 import inet.NetworkHandler;
 import inet.Server;
 
 public class MainWindow extends JFrame{
 	private JMenuBar menuBar;
-	private GameInfo info;
+	private Grid grid;
 	private NetworkHandler handler;
+	private GameListener listener;
 	
-	public MainWindow(NetworkHandler handler){
+	public MainWindow(NetworkHandler handler, GameListener listener, Grid grid){
 		this.handler = handler;
-		this.info = new GameInfo();
+		this.listener = listener;
+		this.grid = grid;
 		//GUI
 		setTitle("Connect 4");
 		
@@ -44,8 +48,8 @@ public class MainWindow extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GameWindow gw = new GameWindow(new GameBoard(info));
 				handler.startServer();
+				listener.onGameSetup();
 			}
 			
 		});

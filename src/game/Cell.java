@@ -9,12 +9,15 @@ public class Cell {
 	
 	private int status;
 	
-	public Cell(int status){
+	public int column;
+	
+	public Cell(int status, int column){
 		this.status = status;
+		this.column = column;
 	}
 	
-	public Cell(){
-		this(Cell.EMPTY);
+	public Cell(int column){
+		this(Cell.EMPTY, column);
 	}
 	
 	boolean isEmpty(){
