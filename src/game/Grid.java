@@ -18,7 +18,7 @@ public class Grid {
 		data = new Cell[this.info.height][this.info.width];
 		for(int y = 0; y < this.info.height; y++){
 			for(int x = 0; x < this.info.width; x++){
-				data[y][x] = new Cell();
+				data[y][x] = new Cell(x);
 			}
 		}
 	}
