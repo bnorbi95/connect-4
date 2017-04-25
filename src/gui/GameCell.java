@@ -8,12 +8,15 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 import game.Cell;
+import inet.Payload;
 
 public class GameCell extends JPanel implements MouseListener{
 	private Cell cell;
+	private GameBoard board;
 	
-	public GameCell(Cell cell){
+	public GameCell(Cell cell, GameBoard board){
 		this.addMouseListener(this);
+		this.board = board;
 		this.cell = cell;
 	}
 	
@@ -39,9 +42,7 @@ public class GameCell extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		//System.out.println(this.getCell().column);
-		
-		
+		Payload pl = new Payload(0, board.getWindow().getMe().getRole(), getCell().column);
 	}
 
 	@Override

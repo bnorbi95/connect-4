@@ -16,6 +16,11 @@ public class Player {
 		this.stone = stone;
 	}
 	
+	public Player(String name, Color stone, int role){
+		this(name, stone);
+		this.role = role;
+	}
+	
 	public String getName(){
 		return name;
 	}
@@ -26,5 +31,9 @@ public class Player {
 	
 	public void setRole(int role){
 		this.role = role;
+	}
+	
+	public int getRole(){
+		return role;
 	}
 }
