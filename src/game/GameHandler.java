@@ -20,10 +20,11 @@ public class GameHandler implements NetworkHandler{
 	
 	public GameHandler() {
 		info = new GameInfo();
+		grid = new Grid(info);
 	}
 	
 	public void run() {
-		mw = new MainWindow(this);
+		mw = new MainWindow(this, grid);
 	}
 
 	@Override

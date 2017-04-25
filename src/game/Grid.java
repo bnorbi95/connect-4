@@ -27,6 +27,15 @@ public class Grid {
 		this(new GameInfo(7,6,4));
 	}
 	
+	public GameInfo getGameInfo(){
+		return info;
+	}
+	
+	public Cell getCell(int x, int y){
+		return data[y][x];
+		//TODO parameter check
+	}
+	
 	private boolean isValidColumn(int column){
 		return (column >= 0 && column < info.width);
 	}

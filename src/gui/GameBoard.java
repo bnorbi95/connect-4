@@ -7,20 +7,22 @@ import javax.swing.JPanel;
 
 import game.Cell;
 import game.GameInfo;
+import game.Grid;
 
 public class GameBoard extends JPanel{
-	private GameInfo info;
+	private Grid grid;
 	
-	public GameInfo getGameInfo(){
-		return info;
+	public Grid getGrid(){
+		return grid;
 	}
 	
-	public GameBoard(GameInfo info){
-		this.info = info;
-		setLayout(new GridLayout(this.info.height, this.info.width, 0, 0));
+	public GameBoard(Grid grid){
+		this.grid = grid;
+		GameInfo info = getGrid().getGameInfo();
+		setLayout(new GridLayout(info.height, info.width, 0, 0));
 		for(int y = 0; y < info.height; y++){
 			for(int x = 0; x < info.width; x++){
-				add(new GameCell(new Cell(x)));
+				add(new GameCell(this.grid.getCell(x, y)));
 			}
 		}
 	}

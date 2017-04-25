@@ -15,7 +15,7 @@ public class GameWindow extends JFrame {
 		this.gameBoard = gameBoard;
 		add(gameBoard);
 		
-		GameInfo info = gameBoard.getGameInfo();
+		GameInfo info = gameBoard.getGrid().getGameInfo();
 		
 		setSize(info.width*CELLWIDTH, info.height*CELLWIDTH);
 		setLocationRelativeTo(null);
