@@ -11,6 +11,9 @@ import game.Cell;
 import inet.Payload;
 
 public class GameCell extends JPanel implements MouseListener{
+	private final static Color DEFAULT_BACKGROUND = Color.blue;
+	private final static Color HIGHLIGHTED_BACKGROUND = Color.cyan;
+	
 	private Cell cell;
 	private GameBoard board;
 	
@@ -28,8 +31,16 @@ public class GameCell extends JPanel implements MouseListener{
 	@Override 
     protected void paintComponent(Graphics g) {
       super.paintComponent(g);
-      g.setColor(new Color(0,0,255));
+      if(!cell.isHighlighted())
+      {
+      g.setColor(DEFAULT_BACKGROUND);
       g.fillRect(0, 0, this.getWidth(), this.getHeight());
+      }
+      else
+      {
+      g.setColor(HIGHLIGHTED_BACKGROUND);
+      g.fillRect(0, 0, this.getWidth(), this.getHeight());     
+      }
       
       float size = 0.8f;
       g.setColor(new Color(120,0,0));
@@ -42,19 +53,22 @@ public class GameCell extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		//System.out.print(board.getWindow().getMe().getRole());
+		//System.out.print(getCell().column);
 		Payload pl = new Payload(0, board.getWindow().getMe().getRole(), getCell().column);
+		System.out.print("(0, " + board.getWindow().getMe().getRole() + ", " + getCell().column + ")");
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		board.highlightColumn(getCell().column, true);
+		board.repaint();
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		board.highlightColumn(getCell().column, false);
+		board.repaint();
 	}
 
 	@Override

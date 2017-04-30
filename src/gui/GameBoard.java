@@ -37,4 +37,11 @@ public class GameBoard extends JPanel{
 	public void setWindow(GameWindow window){
 		this.window = window;
 	}
+	
+	public void highlightColumn(int column, boolean highlight){
+		for(int y = 0; y < getGrid().getGameInfo().height; y++)
+		{
+			getGrid().getCell(column, y).setHighlighted(highlight);
+		}
+	}
 }
