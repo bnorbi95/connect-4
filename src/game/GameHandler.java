@@ -62,6 +62,7 @@ public class GameHandler implements NetworkHandler, GameListener{
 	@Override
 	public void onClientConnected() {
 		// TODO Auto-generated method stub
+		System.out.println("Client connected");
 		
 	}
 
