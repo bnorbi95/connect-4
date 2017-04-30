@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import exceptions.ColumnIsFullException;
@@ -61,10 +62,10 @@ public class GameCell extends JPanel implements MouseListener{
 			board.getGrid().getGameHandler().increaseRound();
 			Payload pl = new Payload(board.getGrid().getGameHandler().getRound(), board.getWindow().getMe().getRole(), getCell().column);
 		} catch (InvalidColumnException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Invalid column");
 			e.printStackTrace();
 		} catch (ColumnIsFullException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "That column is already full!");
 			e.printStackTrace();
 		} catch (InvalidPlayerIdException e) {
 			// TODO Auto-generated catch block
