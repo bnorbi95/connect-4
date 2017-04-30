@@ -44,10 +44,7 @@ public class Cell {
 	}
 	
 	public void setHighlighted(boolean setHighlight){
-		if(setHighlight) 
-			highlight = true;
-		if(!setHighlight)
-			highlight = false;
+			highlight = setHighlight;
 	}
 	
 	public boolean isHighlighted(){

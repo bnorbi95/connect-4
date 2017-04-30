@@ -11,6 +11,9 @@ import game.Cell;
 import inet.Payload;
 
 public class GameCell extends JPanel implements MouseListener{
+	private final static Color DEFAULT_BACKGROUND = Color.blue;
+	private final static Color HIGHLIGHTED_BACKGROUND = Color.cyan;
+	
 	private Cell cell;
 	private GameBoard board;
 	
@@ -30,12 +33,12 @@ public class GameCell extends JPanel implements MouseListener{
       super.paintComponent(g);
       if(!cell.isHighlighted())
       {
-      g.setColor(new Color(0,0,255));
+      g.setColor(DEFAULT_BACKGROUND);
       g.fillRect(0, 0, this.getWidth(), this.getHeight());
       }
       else
       {
-      g.setColor(new Color(0,0,100));
+      g.setColor(HIGHLIGHTED_BACKGROUND);
       g.fillRect(0, 0, this.getWidth(), this.getHeight());     
       }
       
