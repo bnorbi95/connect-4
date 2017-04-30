@@ -63,10 +63,8 @@ public class GameCell extends JPanel implements MouseListener{
 			Payload pl = new Payload(board.getGrid().getGameHandler().getRound(), board.getWindow().getMe().getRole(), getCell().column);
 		} catch (InvalidColumnException e) {
 			JOptionPane.showMessageDialog(null, "Invalid column");
-			e.printStackTrace();
 		} catch (ColumnIsFullException e) {
 			JOptionPane.showMessageDialog(null, "That column is already full!");
-			e.printStackTrace();
 		} catch (InvalidPlayerIdException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
