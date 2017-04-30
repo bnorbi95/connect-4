@@ -2,6 +2,9 @@ package game;
 
 import java.awt.Color;
 
+import exceptions.ColumnIsFullException;
+import exceptions.InvalidColumnException;
+import exceptions.InvalidPlayerIdException;
 import gui.GameBoard;
 import gui.GameWindow;
 import gui.MainWindow;
@@ -72,8 +75,14 @@ public class GameHandler implements NetworkHandler, GameListener{
 	 */
 	@Override
 	public void onRecvPayload(Payload pl) {
-		// TODO Auto-generated method stub
-		
+		round++;
+		try {
+			grid.placeToColumn(pl.getColumn(), pl.getPlayerID());
+		} catch (InvalidColumnException | ColumnIsFullException | InvalidPlayerIdException e) {
+			//other player gets the error message
+			e.printStackTrace();
+		}
+		gw.repaint();
 	}
 
 	@Override
