@@ -31,4 +31,16 @@ public class Payload {
 	public String toString(){
 		return round + " " + player_id + " " + column;
 	}
+	
+	public int getRound(){
+		return round;
+	}
+	
+	public int getPlayerID(){
+		return player_id;
+	}
+	
+	public int getColumn(){
+		return column;
+	}
 }
