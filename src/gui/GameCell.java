@@ -17,6 +17,9 @@ import inet.Payload;
 public class GameCell extends JPanel implements MouseListener{
 	private final static Color DEFAULT_BACKGROUND = Color.blue;
 	private final static Color HIGHLIGHTED_BACKGROUND = Color.cyan;
+	private final static Color STONE_EMPTY = Color.red;
+	private final static Color STONE_PLAYER1 = Color.white;
+	private final static Color STONE_PLAYER2 = Color.black;
 	
 	private Cell cell;
 	private GameBoard board;
@@ -47,7 +50,12 @@ public class GameCell extends JPanel implements MouseListener{
       }
       
       float size = 0.8f;
-      g.setColor(new Color(120,0,0));
+      if(getCell().getStatus() == 0)
+      g.setColor(STONE_EMPTY);
+      else if(getCell().getStatus() == 1)
+      g.setColor(STONE_PLAYER1);
+      else if(getCell().getStatus() == 2)
+      g.setColor(STONE_PLAYER2);
       g.fillArc((int)((1.0f-size)*this.getWidth()/2),
     		  (int)((1.0f-size)*this.getHeight()/2), 
     		  (int)(size*this.getWidth()),
@@ -60,7 +68,14 @@ public class GameCell extends JPanel implements MouseListener{
 		try {
 			board.getGrid().placeToColumn(getCell().column, board.getWindow().getMe().getRole());
 			board.getGrid().getGameHandler().increaseRound();
-			Payload pl = new Payload(board.getGrid().getGameHandler().getRound(), board.getWindow().getMe().getRole(), getCell().column);
+			
+			Payload pl = new Payload(
+					board.getGrid().getGameHandler().getRound(), 
+					board.getWindow().getMe().getRole(),
+					getCell().column);
+			
+			board.repaint();
+			
 		} catch (InvalidColumnException e) {
 			JOptionPane.showMessageDialog(null, "Invalid column");
 		} catch (ColumnIsFullException e) {

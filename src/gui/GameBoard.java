@@ -23,7 +23,7 @@ public class GameBoard extends JPanel{
 		
 		GameInfo info = getGrid().getGameInfo();
 		setLayout(new GridLayout(info.height, info.width, 0, 0));
-		for(int y = 0; y < info.height; y++){
+		for(int y = info.height - 1; y >= 0; y--){
 			for(int x = 0; x < info.width; x++){
 				add(new GameCell(this.grid.getCell(x, y), this));
 			}

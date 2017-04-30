@@ -29,6 +29,10 @@ public class Cell {
 	void setEmpty(){
 		status = Cell.EMPTY;
 	}
+
+	public int getStatus(){
+		return status;
+	}
 	
 	void setPlayer(int id) throws InvalidPlayerIdException{
 		switch(id){
