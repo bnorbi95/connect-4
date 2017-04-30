@@ -30,7 +30,7 @@ public class Grid {
 	
 	public void setHandler(GameHandler handler){
 		this.handler = handler;
-		}
+	}
 	
 	public GameInfo getGameInfo(){
 		return info;
