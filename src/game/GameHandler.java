@@ -24,6 +24,8 @@ public class GameHandler implements NetworkHandler, GameListener{
 	private Player me;
 	private Player opp;
 	
+	private int round;
+	
 	public GameHandler() {
 		info = new GameInfo();
 		grid = new Grid(info);
@@ -76,11 +78,20 @@ public class GameHandler implements NetworkHandler, GameListener{
 
 	@Override
 	public void onGameSetup() {
-		// TODO Auto-generated method stub
+		round = 0;
 		me = new Player("Player 1", Color.RED, 1); //local setup
 		opp = new Player("Player 2", Color.YELLOW, 2); //onClientConnect
+		grid.setHandler(this);
 		GameBoard gb = new GameBoard(grid, null);
 		gw = new GameWindow(gb, me, opp);
 		gb.setWindow(gw);
+	}
+	
+	public int getRound(){
+		return round;
+	}
+	
+	public void increaseRound(){
+		round++;
 	}
 }

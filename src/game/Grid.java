@@ -12,6 +12,7 @@ import exceptions.InvalidPlayerIdException;
 public class Grid {
 	private GameInfo info;
 	private Cell[][] data;
+	private GameHandler handler;
 
 	public Grid(GameInfo info){
 		this.info = info;
@@ -27,8 +28,16 @@ public class Grid {
 		this(new GameInfo(7,6,4));
 	}
 	
+	public void setHandler(GameHandler handler){
+		this.handler = handler;
+		}
+	
 	public GameInfo getGameInfo(){
 		return info;
+	}
+	
+	public GameHandler getGameHandler(){
+		return handler;
 	}
 	
 	public Cell getCell(int x, int y){
