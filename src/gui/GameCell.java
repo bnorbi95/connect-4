@@ -5,8 +5,12 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import exceptions.ColumnIsFullException;
+import exceptions.InvalidColumnException;
+import exceptions.InvalidPlayerIdException;
 import game.Cell;
 import inet.Payload;
 
@@ -53,10 +57,18 @@ public class GameCell extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		//System.out.print(board.getWindow().getMe().getRole());
-		//System.out.print(getCell().column);
-		Payload pl = new Payload(0, board.getWindow().getMe().getRole(), getCell().column);
-		System.out.print("(0, " + board.getWindow().getMe().getRole() + ", " + getCell().column + ")");
+		try {
+			board.getGrid().placeToColumn(getCell().column, board.getWindow().getMe().getRole());
+			board.getGrid().getGameHandler().increaseRound();
+			Payload pl = new Payload(board.getGrid().getGameHandler().getRound(), board.getWindow().getMe().getRole(), getCell().column);
+		} catch (InvalidColumnException e) {
+			JOptionPane.showMessageDialog(null, "Invalid column");
+		} catch (ColumnIsFullException e) {
+			JOptionPane.showMessageDialog(null, "That column is already full!");
+		} catch (InvalidPlayerIdException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
