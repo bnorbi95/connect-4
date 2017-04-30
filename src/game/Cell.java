@@ -9,6 +9,8 @@ public class Cell {
 	
 	private int status;
 	
+	private boolean highlight;
+	
 	public int column;
 	
 	public Cell(int status, int column){
@@ -39,6 +41,17 @@ public class Cell {
 			default:
 				throw new InvalidPlayerIdException(id);
 		}
+	}
+	
+	public void setHighlighted(boolean setHighlight){
+		if(setHighlight) 
+			highlight = true;
+		if(!setHighlight)
+			highlight = false;
+	}
+	
+	public boolean isHighlighted(){
+		return highlight;	
 	}
 	
 	public String toString(){

@@ -28,8 +28,16 @@ public class GameCell extends JPanel implements MouseListener{
 	@Override 
     protected void paintComponent(Graphics g) {
       super.paintComponent(g);
+      if(!cell.isHighlighted())
+      {
       g.setColor(new Color(0,0,255));
       g.fillRect(0, 0, this.getWidth(), this.getHeight());
+      }
+      else
+      {
+      g.setColor(new Color(0,0,100));
+      g.fillRect(0, 0, this.getWidth(), this.getHeight());     
+      }
       
       float size = 0.8f;
       g.setColor(new Color(120,0,0));
@@ -42,19 +50,22 @@ public class GameCell extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		//System.out.print(board.getWindow().getMe().getRole());
+		//System.out.print(getCell().column);
 		Payload pl = new Payload(0, board.getWindow().getMe().getRole(), getCell().column);
+		System.out.print("(0, " + board.getWindow().getMe().getRole() + ", " + getCell().column + ")");
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		board.highlightColumn(getCell().column, true);
+		board.repaint();
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		board.highlightColumn(getCell().column, false);
+		board.repaint();
 	}
 
 	@Override
