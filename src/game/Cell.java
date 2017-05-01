@@ -12,14 +12,16 @@ public class Cell {
 	private boolean highlight;
 	
 	public int column;
+	public int row;
 	
-	public Cell(int status, int column){
+	public Cell(int status, int column, int row){
 		this.status = status;
 		this.column = column;
+		this.row = row;
 	}
 	
-	public Cell(int column){
-		this(Cell.EMPTY, column);
+	public Cell(int column, int row){
+		this(Cell.EMPTY, column, row);
 	}
 	
 	boolean isEmpty(){

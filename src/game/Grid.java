@@ -19,7 +19,7 @@ public class Grid {
 		data = new Cell[this.info.height][this.info.width];
 		for(int y = 0; y < this.info.height; y++){
 			for(int x = 0; x < this.info.width; x++){
-				data[y][x] = new Cell(x);
+				data[y][x] = new Cell(x, y);
 			}
 		}
 	}
@@ -88,9 +88,60 @@ public class Grid {
 	 * @param last Cell of the last placed stone. Can be aquired using return value of placeToColumn(int column)
 	 * @return true if last placed stone won the game, false otherwise.
 	 */
-	public boolean checkForWinner(Cell last){
-		return false;
+	public boolean checkForWin(Cell last){
+		int x = last.column;
+		int y = last.row;
+		int playerID = data[x][y].getStatus();
 		
+		
+		boolean flagVertical = false;
+		int count = 0;
+		for(int i = 0; i < getGameInfo().streak; i++){
+			if(y-i >= 0)if(data[x][y-i].getStatus() == playerID)count++;			
+		}
+		if(count >= getGameInfo().streak)flagVertical=true;
+		
+		boolean flagHorizontal = false;
+		count=0;		//count the streak		
+		while (!flagHorizontal) {
+			// goes through board horizontally
+			for (int i = (-1)*getGameInfo().streak+1; i < getGameInfo().streak; i++) {
+				if(data[x+i][y].getStatus() == playerID)count++;
+				else{
+					count = 0;
+				}
+			}
+			break;
+		}
+		if(count >= getGameInfo().streak)flagHorizontal = true;
+		
+		boolean flagDiagonallyUp = false;
+		count=0;
+		while(!flagDiagonallyUp){
+			for(int i=(-1)*getGameInfo().streak+1; i<getGameInfo().streak; i++){
+				if(x+i>0 && y+i>0)if(data[x+i][y+i].getStatus() == playerID)count++;
+				else{
+					count=0;
+				}
+			}
+			break;
+		}
+		if(count>=getGameInfo().streak)flagDiagonallyUp=true;
+		
+		boolean flagDiagonallyDown=false;
+		count=0;
+		while(!flagDiagonallyDown){
+			for(int i=(-1)*getGameInfo().streak+1; i<getGameInfo().streak; i++){
+				if(x+i>0 && y-i>0)if(data[x+i][y-i].getStatus() == playerID)count++;
+				else{
+					count=0;
+				}
+			}
+			break;
+		}
+		if(count >= getGameInfo().streak)flagDiagonallyDown = true;
+		boolean flag = flagHorizontal || flagVertical || flagDiagonallyUp || flagDiagonallyDown;
+		return (flag);
 	}
 	
 	public void printGrid(){

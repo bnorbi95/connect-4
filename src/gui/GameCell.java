@@ -65,24 +65,31 @@ public class GameCell extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		try {
-			board.getGrid().placeToColumn(getCell().column, board.getWindow().getMe().getRole());
-			board.getGrid().getGameHandler().increaseRound();
-			
-			Payload pl = new Payload(
+		if(!board.getGrid().getGameHandler().getDisabled()){
+			try {
+				Cell lastCell = board.getGrid().placeToColumn(getCell().column, board.getWindow().getMe().getRole());
+				board.getGrid().getGameHandler().increaseRound();
+				
+				Payload pl = new Payload(
 					board.getGrid().getGameHandler().getRound(), 
 					board.getWindow().getMe().getRole(),
 					getCell().column);
-			
-			board.repaint();
-			
-		} catch (InvalidColumnException e) {
-			JOptionPane.showMessageDialog(null, "Invalid column");
-		} catch (ColumnIsFullException e) {
-			JOptionPane.showMessageDialog(null, "That column is already full!");
-		} catch (InvalidPlayerIdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				
+				board.getGrid().getGameHandler().setDisabled(true);
+				board.repaint();
+				
+				if(board.getGrid().checkForWin(lastCell))
+				{
+					JOptionPane.showMessageDialog(null, "Congratulations, you won!");
+				}
+			} catch (InvalidColumnException e) {
+				JOptionPane.showMessageDialog(null, "Invalid column");
+			} catch (ColumnIsFullException e) {
+				JOptionPane.showMessageDialog(null, "That column is already full!");
+			} catch (InvalidPlayerIdException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -2,6 +2,8 @@ package game;
 
 import java.awt.Color;
 
+import javax.swing.JOptionPane;
+
 import exceptions.ColumnIsFullException;
 import exceptions.InvalidColumnException;
 import exceptions.InvalidPlayerIdException;
@@ -28,6 +30,8 @@ public class GameHandler implements NetworkHandler, GameListener{
 	private Player opp;
 	
 	private int round;
+	
+	private boolean disabled = false;
 	
 	public GameHandler() {
 		info = new GameInfo();
@@ -76,8 +80,13 @@ public class GameHandler implements NetworkHandler, GameListener{
 	@Override
 	public void onRecvPayload(Payload pl) {
 		round++;
+		setDisabled(false);
 		try {
-			grid.placeToColumn(pl.getColumn(), pl.getPlayerID());
+			Cell lastCell = grid.placeToColumn(pl.getColumn(), pl.getPlayerID());
+			if(grid.checkForWin(lastCell))
+			{
+				JOptionPane.showMessageDialog(null, "You lost");
+			}
 		} catch (InvalidColumnException | ColumnIsFullException | InvalidPlayerIdException e) {
 			//other player gets the error message
 			e.printStackTrace();
@@ -102,5 +111,13 @@ public class GameHandler implements NetworkHandler, GameListener{
 	
 	public void increaseRound(){
 		round++;
+	}
+	
+	public boolean getDisabled(){
+		return disabled;
+	}
+	
+	public void setDisabled(boolean disabled){
+		this.disabled = disabled;
 	}
 }
