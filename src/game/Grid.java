@@ -89,57 +89,68 @@ public class Grid {
 	 * @return true if last placed stone won the game, false otherwise.
 	 */
 	public boolean checkForWin(Cell last){
-		int x = last.column;
-		int y = last.row;
-		int playerID = data[x][y].getStatus();
-		
+		int x = last.getColumn();
+		int y = last.getRow();
+		int playerID = data[y][x].getStatus();
 		
 		boolean flagVertical = false;
 		int count = 0;
-		for(int i = 0; i < getGameInfo().streak; i++){
-			if(y-i >= 0)if(data[x][y-i].getStatus() == playerID)count++;			
+		for (int i = 0; i < getGameInfo().streak; i++) {
+			if (y - i >= 0)
+				if (data[y - i][x].getStatus() == playerID)
+					count++;
 		}
-		if(count >= getGameInfo().streak)flagVertical=true;
-		
+		if (count >= getGameInfo().streak)
+			flagVertical = true;
+
 		boolean flagHorizontal = false;
-		count=0;		//count the streak		
-		while (!flagHorizontal) {
-			// goes through board horizontally
-			for (int i = (-1)*getGameInfo().streak+1; i < getGameInfo().streak; i++) {
-				if(data[x+i][y].getStatus() == playerID)count++;
-				else{
+		count = 0; // count the streak
+
+		// goes through board horizontally
+		for (int i = (-1) * getGameInfo().streak + 1; i < getGameInfo().streak; i++) {
+			if (x + i >= 0 && x + i < getGameInfo().width){
+				if (data[y][x + i].getStatus() == playerID)
+					count++;
+				else {
 					count = 0;
 				}
 			}
-			break;
 		}
-		if(count >= getGameInfo().streak)flagHorizontal = true;
-		
+
+		if (count >= getGameInfo().streak)
+			flagHorizontal = true;
+
 		boolean flagDiagonallyUp = false;
-		count=0;
-		while(!flagDiagonallyUp){
-			for(int i=(-1)*getGameInfo().streak+1; i<getGameInfo().streak; i++){
-				if(x+i>0 && y+i>0)if(data[x+i][y+i].getStatus() == playerID)count++;
-				else{
-					count=0;
+		count = 0;
+
+		for (int i = (-1) * getGameInfo().streak + 1; i < getGameInfo().streak; i++) {
+			if (x + i >= 0 && x + i < getGameInfo().width && y + i > 0 && y + i < getGameInfo().height)
+				if (data[y + i][x + i].getStatus() == playerID)
+					count++;
+				else {
+					count = 0;
 				}
-			}
-			break;
 		}
-		if(count>=getGameInfo().streak)flagDiagonallyUp=true;
+
+		if (count >= getGameInfo().streak)
+			flagDiagonallyUp = true;
+
+		boolean flagDiagonallyDown = false;
+		count = 0;
+
+		for (int i = (-1) * getGameInfo().streak + 1; i < getGameInfo().streak; i++) {
+			if (x + i >= 0 && x + i < getGameInfo().width && y - i > 0 && y - i < getGameInfo().height)
+				if (data[y - i][x + i].getStatus() == playerID)
+					count++;
+				else {
+					count = 0;
+				}
+		}
+
+		if (count >= getGameInfo().streak)
+			flagDiagonallyDown = true;
 		
-		boolean flagDiagonallyDown=false;
-		count=0;
-		while(!flagDiagonallyDown){
-			for(int i=(-1)*getGameInfo().streak+1; i<getGameInfo().streak; i++){
-				if(x+i>0 && y-i>0)if(data[x+i][y-i].getStatus() == playerID)count++;
-				else{
-					count=0;
-				}
-			}
-			break;
-		}
-		if(count >= getGameInfo().streak)flagDiagonallyDown = true;
+		
 		boolean flag = flagHorizontal || flagVertical || flagDiagonallyUp || flagDiagonallyDown;
 		return (flag);
 	}

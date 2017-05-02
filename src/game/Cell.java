@@ -11,8 +11,8 @@ public class Cell {
 	
 	private boolean highlight;
 	
-	public int column;
-	public int row;
+	private int column;
+	private int row;
 	
 	public Cell(int status, int column, int row){
 		this.status = status;
@@ -30,6 +30,14 @@ public class Cell {
 	
 	void setEmpty(){
 		status = Cell.EMPTY;
+	}
+	
+	public int getColumn(){
+		return column;
+	}
+	
+	public int getRow(){
+		return row;
 	}
 
 	public int getStatus(){

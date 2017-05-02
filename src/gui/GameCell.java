@@ -67,15 +67,16 @@ public class GameCell extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent arg0) {
 		if(!board.getGrid().getGameHandler().getDisabled()){
 			try {
-				Cell lastCell = board.getGrid().placeToColumn(getCell().column, board.getWindow().getMe().getRole());
+				Cell lastCell = board.getGrid().placeToColumn(getCell().getColumn(), board.getWindow().getMe().getRole());
 				board.getGrid().getGameHandler().increaseRound();
 				
 				Payload pl = new Payload(
 					board.getGrid().getGameHandler().getRound(), 
 					board.getWindow().getMe().getRole(),
-					getCell().column);
+					getCell().getColumn());
 				
 				board.getGrid().getGameHandler().setDisabled(true);
+				board.highlightColumn(getCell().getColumn(), false);
 				board.repaint();
 				
 				if(board.getGrid().checkForWin(lastCell))
@@ -96,7 +97,7 @@ public class GameCell extends JPanel implements MouseListener{
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		if(!board.getGrid().getGameHandler().getDisabled()){
-		board.highlightColumn(getCell().column, true);
+		board.highlightColumn(getCell().getColumn(), true);
 		board.repaint();
 		}
 	}
@@ -104,7 +105,7 @@ public class GameCell extends JPanel implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent e) {
 		if(!board.getGrid().getGameHandler().getDisabled()){
-		board.highlightColumn(getCell().column, false);
+		board.highlightColumn(getCell().getColumn(), false);
 		board.repaint();
 		}
 	}
