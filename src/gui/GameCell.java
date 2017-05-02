@@ -95,14 +95,18 @@ public class GameCell extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		if(!board.getGrid().getGameHandler().getDisabled()){
 		board.highlightColumn(getCell().column, true);
 		board.repaint();
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		if(!board.getGrid().getGameHandler().getDisabled()){
 		board.highlightColumn(getCell().column, false);
 		board.repaint();
+		}
 	}
 
 	@Override
