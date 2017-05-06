@@ -94,6 +94,8 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	public void onRecvPayload(Payload pl) {
 		round++;
 		setDisabled(false);
+		gw.getStatusbar().setText("Current player: "+ me.getName());
+		
 		try {
 			Cell lastCell = grid.placeToColumn(pl.getColumn(), pl.getPlayerID());
 			if(grid.checkForWin(lastCell))
@@ -114,6 +116,10 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 		GameBoard gb = new GameBoard(grid, null);
 		gw = new GameWindow(gb, me, opp);
 		gb.setWindow(gw);
+		if(gw.getMe().getRole() == 1)
+			setDisabled(false);
+		if(gw.getMe().getRole() == 2)
+			setDisabled(true);
 	}
 	
 	public int getRound(){
@@ -133,7 +139,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	}
 
 	@Override
-	public void onSetupLocalPlayer(String playerName, Color stoneColor) {
-		me = new Player(playerName, stoneColor, 1);
+	public void onSetupLocalPlayer(String playerName, Color stoneColor, int role) {
+		me = new Player(playerName, stoneColor, role);
 	}
 }
