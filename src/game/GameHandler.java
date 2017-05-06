@@ -100,7 +100,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 			Cell lastCell = grid.placeToColumn(pl.getColumn(), pl.getPlayerID());
 			if(grid.checkForWin(lastCell))
 			{
-				JOptionPane.showMessageDialog(null, "You lost");
+				onGameEnd(opp);
 			}
 		} catch (InvalidColumnException | ColumnIsFullException | InvalidPlayerIdException e) {
 			//other player gets the error message
@@ -143,5 +143,16 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	@Override
 	public void onSetupLocalPlayer(String playerName, Color stoneColor, int role) {
 		me = new Player(playerName, stoneColor, role);
+	}
+
+	@Override
+	public void onGameEnd(Player winner) {
+		if(winner == me){
+			JOptionPane.showMessageDialog(null, "You Won!");
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "You Lost!");
+		}
+		System.exit(0);
 	}
 }

@@ -84,7 +84,7 @@ public class GameCell extends JPanel implements MouseListener{
 				
 				if(board.getGrid().checkForWin(lastCell))
 				{
-					JOptionPane.showMessageDialog(null, "Congratulations, you won!");
+					board.getGrid().getGameHandler().onGameEnd(board.getWindow().getMe());
 				}
 			} catch (InvalidColumnException e) {
 				JOptionPane.showMessageDialog(null, "Invalid column");
