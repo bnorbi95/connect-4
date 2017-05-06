@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import game.GameEventHandler;
 import game.Grid;
 import inet.NetworkHandler;
+import util.ColorConverter;
 
 public class MainWindow extends JFrame{
 	private Grid grid;
@@ -91,7 +92,7 @@ public class MainWindow extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				listener.onSetupLocalPlayer(
 						TextName.getText(), 
-						getColor(colorBox.getSelectedItem().toString())
+						ColorConverter.getColor(colorBox.getSelectedItem().toString())
 				);
 				handler.startServer();
 			}
@@ -119,21 +120,5 @@ public class MainWindow extends JFrame{
 		add(title, BorderLayout.NORTH);
 	    add(SETPanel, BorderLayout.CENTER);
 	    add(ButtonPanel, BorderLayout.SOUTH);
-	}
-	
-	private Color getColor(String name) {
-		switch (name) {
-			case "MAGENTA":
-				return Color.MAGENTA;
-			case "RED":
-				return Color.RED;
-			case "PINK":
-				return Color.PINK;
-			case "YELLOW":
-				return Color.YELLOW;
-			case "ORANGE":
-				return Color.ORANGE;
-		}
-		return Color.BLACK;
 	}
 }
