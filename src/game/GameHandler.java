@@ -101,17 +101,24 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	public void onRecvPayload(Payload pl) {
 		round++;
 		setDisabled(false);
+		gw.getStatusbar().setText("Current player: "+ me.getName());
+		
 		try {
 			Cell lastCell = grid.placeToColumn(pl.getColumn(), pl.getPlayerID());
 			if(grid.checkForWin(lastCell))
 			{
-				JOptionPane.showMessageDialog(null, "You lost");
+				onGameEnd(opp);
 			}
 		} catch (InvalidColumnException | ColumnIsFullException | InvalidPlayerIdException e) {
 			//other player gets the error message
 			e.printStackTrace();
 		}
 		gw.repaint();
+	}
+	
+	@Override
+	public void onSendPayload(Payload pl) {
+		network_node.sendPayload(pl);	
 	}
 
 	@Override
@@ -121,6 +128,13 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 		GameBoard gb = new GameBoard(grid, null);
 		gw = new GameWindow(gb, me, opp);
 		gb.setWindow(gw);
+		gb.initGameCells();
+
+		if(gw.getMe().getRole() == 1)
+			setDisabled(false);
+		if(gw.getMe().getRole() == 2)
+			setDisabled(true);
+			
 	}
 	
 	public int getRound(){
@@ -140,8 +154,19 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	}
 
 	@Override
-	public void onSetupLocalPlayer(String playerName, Color stoneColor) {
-		me = new Player(playerName, stoneColor, 1);
+	public void onSetupLocalPlayer(String playerName, Color stoneColor, int role) {
+		me = new Player(playerName, stoneColor, role);
+	}
+  
+	@Override
+	public void onGameEnd(Player winner) {
+		if(winner == me){
+			JOptionPane.showMessageDialog(null, "You Won!");
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "You Lost!");
+		}
+		System.exit(0);
 	}
 
 	@Override

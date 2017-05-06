@@ -3,6 +3,8 @@ package util;
 import java.awt.Color;
 
 public class ColorConverter {
+	public final static String[] ALL_COLORS = {"MAGENTA","RED","PINK","YELLOW","ORANGE"};
+
 	public static Color getColor(String color) {
 		switch (color) {
 			case "MAGENTA":

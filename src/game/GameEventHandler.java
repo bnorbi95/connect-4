@@ -4,5 +4,6 @@ import java.awt.Color;
 
 public interface GameEventHandler {
 	public void onGameSetup();
-	public void onSetupLocalPlayer(String playerName, Color stoneColor);
+	public void onGameEnd(Player winner);
+	public void onSetupLocalPlayer(String playerName, Color stoneColor, int role);
 }
