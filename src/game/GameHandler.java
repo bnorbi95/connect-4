@@ -198,6 +198,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 		dialog.setModal(true);
 		dialog.setContentPane(waitingWindow);
 		dialog.pack();
+		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}
 }
