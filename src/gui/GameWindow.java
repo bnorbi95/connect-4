@@ -35,9 +35,9 @@ public class GameWindow extends JFrame {
 		
 		JPanel showPanel = new JPanel(new GridLayout(4, 1, 10, 10));
 		showPanel.add(new JLabel(me.getName()));
-		showPanel.add(new JLabel(me.getStoneColor().toString()));
+		showPanel.add(colorBox(me.getStoneColor()));
 		showPanel.add(new JLabel(opp.getName()));
-		showPanel.add(new JLabel(opp.getStoneColor().toString()));
+		showPanel.add(colorBox(opp.getStoneColor()));
 		
 		JLabel title = new JLabel("Connect Four");
 		title.setOpaque(true);
@@ -60,5 +60,11 @@ public class GameWindow extends JFrame {
 	
 	public Player getMe(){
 		return me;
+	}
+	
+	private JPanel colorBox(Color bg) {
+		JPanel p = new JPanel();
+		p.setBackground(bg);
+		return p;
 	}
 }

@@ -82,7 +82,7 @@ public class MainWindow extends JFrame{
 		
 	    colorBox.setForeground(Color.red);
 		colorBox.setBackground(Color.white);
-		colorBox.setSelectedItem("Item 2");
+		colorBox.setSelectedItem("RED");
 		SetPanel.add(colorBox);
 		
 		JPanel SETPanel=new JPanel(new BorderLayout());
