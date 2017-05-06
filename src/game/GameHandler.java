@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.io.IOException;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import exceptions.ColumnIsFullException;
@@ -35,6 +36,8 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	private int round;
 	
 	private boolean disabled = false;
+	private JOptionPane waitingWindow;
+	private JDialog dialog;
 	
 	public GameHandler() {
 		info = new GameInfo();
@@ -83,6 +86,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	public void onRecvPlayerData(PayloadConfig pl) {
 		opp = new Player(pl.getName(), ColorConverter.getColor(pl.getColor()), pl.getPlayerID());
 		onGameSetup();
+		dialog.dispose();
 	}
 
 	/**
@@ -133,5 +137,17 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	@Override
 	public void onSetupLocalPlayer(String playerName, Color stoneColor) {
 		me = new Player(playerName, stoneColor, 1);
+	}
+
+	@Override
+	public void onWaitinForPlayer() {
+		waitingWindow = new JOptionPane("Waiting for other player...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+		dialog = new JDialog();
+		dialog.setTitle("Message");
+		dialog.setModal(true);
+		dialog.setContentPane(waitingWindow);
+		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		dialog.pack();
+		dialog.setVisible(true);
 	}
 }

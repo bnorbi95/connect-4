@@ -95,6 +95,7 @@ public class MainWindow extends JFrame{
 						ColorConverter.getColor(colorBox.getSelectedItem().toString())
 				);
 				handler.startServer();
+				handler.onWaitinForPlayer();
 			}
 			
 		});
