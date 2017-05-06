@@ -92,7 +92,8 @@ public class MainWindow extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				listener.onSetupLocalPlayer(
 						TextName.getText(), 
-						ColorConverter.getColor(colorBox.getSelectedItem().toString())
+						ColorConverter.getColor(colorBox.getSelectedItem().toString()),
+						1
 				);
 				handler.startServer();
 				setVisible(false);
@@ -107,7 +108,8 @@ public class MainWindow extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				listener.onSetupLocalPlayer(
 						TextName.getText(), 
-						ColorConverter.getColor(colorBox.getSelectedItem().toString())
+						ColorConverter.getColor(colorBox.getSelectedItem().toString()),
+						2
 				);
 				handler.startClient();
 				setVisible(false);

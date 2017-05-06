@@ -135,7 +135,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	}
 
 	@Override
-	public void onSetupLocalPlayer(String playerName, Color stoneColor) {
-		me = new Player(playerName, stoneColor, 1);
+	public void onSetupLocalPlayer(String playerName, Color stoneColor, int role) {
+		me = new Player(playerName, stoneColor, role);
 	}
 }
