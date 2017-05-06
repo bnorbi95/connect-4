@@ -62,6 +62,7 @@ public class GameWindow extends JFrame{
 		add(gameBoard, BorderLayout.CENTER);
 		add(statusbar, BorderLayout.SOUTH);
 		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(info.width*CELLWIDTH + SHOW_PANEL_WIDTH, info.height*CELLWIDTH + 40);
 		setLocationRelativeTo(null);
 		setResizable(false);
