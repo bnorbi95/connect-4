@@ -45,6 +45,7 @@ public class MainWindow extends JFrame{
 		generateLayout();
 		
 		setSize(400,300);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
