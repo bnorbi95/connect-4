@@ -23,6 +23,7 @@ public class Client extends NetworkNode{
 		outstream.flush();
 		//receive opponent's data
 		handler.onRecvPlayerData(new PayloadConfig(instream.readLine()));
+		doMainLoop();
 	}
 
 	@Override

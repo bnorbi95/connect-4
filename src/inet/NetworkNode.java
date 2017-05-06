@@ -45,4 +45,22 @@ public abstract class NetworkNode {
 		Payload payload = new Payload(instream.readLine());
 		handler.onRecvPayload(payload);
 	}
+	
+	protected void doMainLoop(){
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					while(true) {
+						recvPayload();
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			
+		}).start();	
+	}
 }

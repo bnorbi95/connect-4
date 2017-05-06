@@ -24,6 +24,7 @@ public class Server extends NetworkNode{
 		PayloadConfig cfg = new PayloadConfig(p.getRole(), p.getName(), p.getStoneColor());
 		outstream.write(cfg.toString());
 		outstream.flush();
+		doMainLoop();
 	}
 
 	@Override
