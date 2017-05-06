@@ -94,6 +94,8 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	public void onRecvPayload(Payload pl) {
 		round++;
 		setDisabled(false);
+		gw.getStatusbar().setText("Current player: "+ me.getName());
+		
 		try {
 			Cell lastCell = grid.placeToColumn(pl.getColumn(), pl.getPlayerID());
 			if(grid.checkForWin(lastCell))

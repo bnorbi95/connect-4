@@ -77,6 +77,7 @@ public class GameCell extends JPanel implements MouseListener{
 				
 				board.getGrid().getGameHandler().setDisabled(true);
 				board.highlightColumn(getCell().getColumn(), false);
+				board.getWindow().getStatusbar().setText("Current player: " + board.getWindow().getOpp().getName());
 				board.repaint();
 				
 				if(board.getGrid().checkForWin(lastCell))
