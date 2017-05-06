@@ -31,7 +31,7 @@ public class MainWindow extends JFrame{
 	
 	private JButton StartButton=new JButton("START");
 	private JButton LoginButton=new JButton("LOGIN");
-	private JTextField TextName=new JTextField("Name");
+	private JTextField TextName=new JTextField();
 	private static final String[] colors = {"MAGENTA","BLUE","RED","PINK","YELLOW","ORANGE"};
 	private JComboBox colorBox = new JComboBox(colors);
 	
@@ -45,6 +45,7 @@ public class MainWindow extends JFrame{
 		generateLayout();
 		
 		setSize(400,300);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -81,7 +82,7 @@ public class MainWindow extends JFrame{
 		
 	    colorBox.setForeground(Color.red);
 		colorBox.setBackground(Color.white);
-		colorBox.setSelectedItem("Item 2");
+		colorBox.setSelectedItem("RED");
 		SetPanel.add(colorBox);
 		
 		JPanel SETPanel=new JPanel(new BorderLayout());
