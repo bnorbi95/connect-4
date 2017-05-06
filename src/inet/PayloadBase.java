@@ -1,13 +1,11 @@
 package inet;
 
 public abstract class PayloadBase {
-	protected int player_id;
+	protected final static int TYPE_ROUND = 10;
+	protected final static int TYPE_CONFIG = 11;
 	
-	public int getPlayerID() {
-		return player_id;
-	}
-	
-	public String toString() {
-		return Integer.toString(player_id);
+	protected int type;
+	protected PayloadBase(int type) {
+		this.type = type;
 	}
 }
