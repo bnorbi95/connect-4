@@ -55,8 +55,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 				try {
 					((Server) network_node).startGameServer(me);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Network error, unable to connect");
 				}
 			}
 			
@@ -73,8 +72,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 				try {
 					((Client) network_node).connect(me);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Network error, unable to connect");
 				}
 			}
 			

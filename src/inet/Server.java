@@ -27,14 +27,8 @@ public class Server extends NetworkNode{
 	}
 
 	@Override
-	protected void initializeSocket() {
-		try {
+	protected void initializeSocket() throws IOException {
 			ssocket = new ServerSocket(port);
 			socket = ssocket.accept();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 }

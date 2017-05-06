@@ -2,6 +2,9 @@ package inet;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
+
+import javax.swing.JOptionPane;
 
 import game.Player;
 
@@ -26,13 +29,8 @@ public class Client extends NetworkNode{
 	}
 
 	@Override
-	protected void initializeSocket() {
-		try {
-			socket = new Socket(Network.LOCAL, port);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected void initializeSocket() throws UnknownHostException, IOException {
+		socket = new Socket(Network.LOCAL, port);
 	}
 	
 }
