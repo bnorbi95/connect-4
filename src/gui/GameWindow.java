@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import game.GameInfo;
 import game.Player;
+import util.Style;
 
 public class GameWindow extends JFrame {
 	private final static int CELLWIDTH = 60; 
@@ -41,8 +42,8 @@ public class GameWindow extends JFrame {
 		
 		JLabel title = new JLabel("Connect Four");
 		title.setOpaque(true);
-		title.setBackground(Color.RED);
-		title.setFont(new Font("Times", Font.ITALIC, 20));
+		title.setBackground(Style.GAME_TITLE_BACKGROUND);
+		title.setFont(Style.GAME_TITLE_FONT);
 		
 		JPanel showPanelContainer = new JPanel();
 		showPanelContainer.setLayout(new BoxLayout(showPanelContainer, BoxLayout.X_AXIS));
