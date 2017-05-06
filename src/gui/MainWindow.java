@@ -106,7 +106,7 @@ public class MainWindow extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				listener.onSetupLocalPlayer(
 						TextName.getText(), 
-						getColor(colorBox.getSelectedItem().toString())
+						ColorConverter.getColor(colorBox.getSelectedItem().toString())
 				);
 				handler.startClient();
 			}
