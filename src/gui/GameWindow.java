@@ -64,6 +64,10 @@ public class GameWindow extends JFrame {
 		return me;
 	}
 	
+	public Player getOpp(){
+		return opp;
+	}
+	
 	private JPanel colorBox(Color bg) {
 		JPanel p = new JPanel();
 		p.setBackground(bg);

@@ -21,11 +21,21 @@ public class GameCell extends JPanel implements MouseListener{
 	
 	private Cell cell;
 	private GameBoard board;
+	private Color stone_player_1;
+	private Color stone_player_2;
 	
 	public GameCell(Cell cell, GameBoard board){
 		this.addMouseListener(this);
 		this.board = board;
 		this.cell = cell;
+		if (board.getWindow().getMe().getRole() == 1) {
+			stone_player_1 = board.getWindow().getMe().getStoneColor();
+			stone_player_2 = board.getWindow().getOpp().getStoneColor();
+		}
+		else {
+			stone_player_2 = board.getWindow().getMe().getStoneColor();
+			stone_player_1 = board.getWindow().getOpp().getStoneColor();
+		}
 	}
 	
 	public Cell getCell(){
@@ -43,12 +53,12 @@ public class GameCell extends JPanel implements MouseListener{
       g.fillRect(0, 0, this.getWidth(), this.getHeight());
       
       float size = 0.8f;
-      if(getCell().getStatus() == 0)
+      if(getCell().getStatus() == Cell.EMPTY)
     	  g.setColor(Style.STONE_EMPTY);
-      else if(getCell().getStatus() == 1)
-    	  g.setColor(STONE_PLAYER1);
-      else if(getCell().getStatus() == 2)
-    	  g.setColor(STONE_PLAYER2);
+      else if(getCell().getStatus() == Cell.PLAYER_1)
+    	  g.setColor(stone_player_1);
+      else if(getCell().getStatus() == Cell.PLAYER_2)
+    	  g.setColor(stone_player_2);
       g.fillArc((int)((1.0f-size)*this.getWidth()/2),
     		  (int)((1.0f-size)*this.getHeight()/2), 
     		  (int)(size*this.getWidth()),
@@ -60,7 +70,9 @@ public class GameCell extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent arg0) {
 		if(!board.getGrid().getGameHandler().getDisabled()){
 			try {
-				Cell lastCell = board.getGrid().placeToColumn(getCell().getColumn(), board.getWindow().getMe().getRole());
+				Cell lastCell = board.getGrid().placeToColumn(
+						getCell().getColumn(), 
+						board.getWindow().getMe().getRole());
 				board.getGrid().getGameHandler().increaseRound();
 				
 				Payload pl = new Payload(

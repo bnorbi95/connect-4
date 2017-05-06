@@ -17,7 +17,7 @@ public class Style {
 			
 	public final static Color CELL_DEFAULT_BACKGROUND = Color.BLUE;
 	public final static Color CELL_HIGHLIGHTED_BACKGROUND = Color.CYAN;
-	public final static Color STONE_EMPTY = Color.RED;
+	public final static Color STONE_EMPTY = Color.WHITE;
 	
 	public final static Color GAME_TITLE_BACKGROUND = Color.RED;
 	public final static Font GAME_TITLE_FONT = new Font("Times", Font.ITALIC, 20);
