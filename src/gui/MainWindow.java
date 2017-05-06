@@ -89,11 +89,11 @@ public class MainWindow extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				handler.startServer();
-				listener.onGameSetup(
+				listener.onSetupLocalPlayer(
 						TextName.getText(), 
 						getColor(colorBox.getSelectedItem().toString())
 				);
+				handler.startServer();
 			}
 			
 		});
@@ -103,6 +103,10 @@ public class MainWindow extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				listener.onSetupLocalPlayer(
+						TextName.getText(), 
+						getColor(colorBox.getSelectedItem().toString())
+				);
 				handler.startClient();
 			}
 			

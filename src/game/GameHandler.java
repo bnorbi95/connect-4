@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
@@ -15,7 +16,9 @@ import inet.Network;
 import inet.NetworkHandler;
 import inet.NetworkNode;
 import inet.Payload;
+import inet.PayloadConfig;
 import inet.Server;
+import util.ColorConverter;
 
 public class GameHandler implements NetworkHandler, GameEventHandler{
 	private NetworkNode network_node;
@@ -49,7 +52,12 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 
 			@Override
 			public void run() {
-				((Server) network_node).startGameServer();
+				try {
+					((Server) network_node).startGameServer(me);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 		}).start();
@@ -62,16 +70,22 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 
 			@Override
 			public void run() {
-				((Client) network_node).connect();
+				try {
+					((Client) network_node).connect(me);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 		}).start();
 	}
-
+	
 	@Override
-	public void onClientConnected() {
-		// TODO Auto-generated method stub
-		
+	public void onRecvPlayerData(PayloadConfig pl) {
+		System.out.println("R:"+pl.toString());
+		opp = new Player(pl.getName(), ColorConverter.getColor(pl.getColor()), pl.getPlayerID());
+		onGameSetup();
 	}
 
 	/**
@@ -95,10 +109,8 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	}
 
 	@Override
-	public void onGameSetup(String playerName, Color stoneColor) {
+	public void onGameSetup() {
 		round = 0;
-		me = new Player(playerName, stoneColor, 1); //local setup
-		opp = new Player("Player 2", Color.YELLOW, 2); //onClientConnect
 		grid.setHandler(this);
 		GameBoard gb = new GameBoard(grid, null);
 		gw = new GameWindow(gb, me, opp);
@@ -119,5 +131,10 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	
 	public void setDisabled(boolean disabled){
 		this.disabled = disabled;
+	}
+
+	@Override
+	public void onSetupLocalPlayer(String playerName, Color stoneColor) {
+		me = new Player(playerName, stoneColor, 1);
 	}
 }

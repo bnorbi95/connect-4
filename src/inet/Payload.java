@@ -33,7 +33,7 @@ public class Payload extends PayloadBase {
 	
 	@Override
 	public String toString(){
-		return round + " " + player_id + " " + column;
+		return round + " " + player_id + " " + column + "\n";
 	}
 	
 	public int getRound(){
