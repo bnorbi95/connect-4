@@ -31,7 +31,7 @@ public class MainWindow extends JFrame{
 	
 	private JButton StartButton=new JButton("START");
 	private JButton LoginButton=new JButton("LOGIN");
-	private JTextField TextName=new JTextField("Name");
+	private JTextField TextName=new JTextField();
 	private static final String[] colors = {"MAGENTA","BLUE","RED","PINK","YELLOW","ORANGE"};
 	private JComboBox colorBox = new JComboBox(colors);
 	
