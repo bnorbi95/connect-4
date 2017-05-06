@@ -3,6 +3,8 @@ package inet;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import game.Player;
+
 public class Server extends NetworkNode{
 	private ServerSocket ssocket;
 	
@@ -14,9 +16,14 @@ public class Server extends NetworkNode{
 		super(port, handler);
 	}
 	
-	public void startGameServer(){
+	public void startGameServer(Player p) throws IOException{
 		createIOStreams();
-		handler.onClientConnected();
+		//receive opponenet's data
+		handler.onRecvPlayerData(new PayloadConfig(instream.readLine()));
+		//send own player data
+		PayloadConfig cfg = new PayloadConfig(p.getRole(), p.getName(), p.getStoneColor());
+		outstream.write(cfg.toString());
+		outstream.flush();
 	}
 
 	@Override
