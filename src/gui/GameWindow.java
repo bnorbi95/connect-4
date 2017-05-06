@@ -61,55 +61,10 @@ public class GameWindow extends JFrame{
 		add(gameBoard, BorderLayout.CENTER);
 		add(statusbar, BorderLayout.SOUTH);
 		
-		setSize(info.width*CELLWIDTH + SHOW_PANEL_WIDTH, info.height*CELLWIDTH + 20);
+		setSize(info.width*CELLWIDTH + SHOW_PANEL_WIDTH, info.height*CELLWIDTH + 40);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);
-		
-		WindowListener w = new WindowListener() {
-			@Override
-			public void windowActivated(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				//Main Window setVisible(true);
-			}
-
-			@Override
-			public void windowClosing(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowDeactivated(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowIconified(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowOpened(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-
 	}
 	
 	public JLabel getStatusbar(){
