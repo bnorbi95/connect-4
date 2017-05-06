@@ -2,9 +2,11 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +16,7 @@ import game.Player;
 
 public class GameWindow extends JFrame {
 	private final static int CELLWIDTH = 60; 
+	private final static int SHOW_PANEL_WIDTH = 100;
 	
 	private GameBoard gameBoard;
 	private Player me, opp;
@@ -41,11 +44,16 @@ public class GameWindow extends JFrame {
 		title.setBackground(Color.RED);
 		title.setFont(new Font("Times", Font.ITALIC, 20));
 		
-		add(showPanel, BorderLayout.EAST);
+		JPanel showPanelContainer = new JPanel();
+		showPanelContainer.setLayout(new BoxLayout(showPanelContainer, BoxLayout.X_AXIS));
+		showPanelContainer.add(showPanel);
+		showPanelContainer.setPreferredSize(new Dimension(SHOW_PANEL_WIDTH, 0));
+		
+		add(showPanelContainer, BorderLayout.EAST);
 		add(title, BorderLayout.NORTH);
 		add(gameBoard, BorderLayout.CENTER);
 		
-		setSize(info.width*CELLWIDTH, info.height*CELLWIDTH);
+		setSize(info.width*CELLWIDTH + SHOW_PANEL_WIDTH, info.height*CELLWIDTH + 20);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
