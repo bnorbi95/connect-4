@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.Color;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import javax.swing.JDialog;
@@ -86,7 +88,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	public void onRecvPlayerData(PayloadConfig pl) {
 		opp = new Player(pl.getName(), ColorConverter.getColor(pl.getColor()), pl.getPlayerID());
 		onGameSetup();
-		dialog.dispose();
+		
 	}
 
 	/**
@@ -142,6 +144,51 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	@Override
 	public void onWaitinForPlayer() {
 		waitingWindow = new JOptionPane("Waiting for other player...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+		WindowListener wlisten = new WindowListener() {
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
 		dialog = new JDialog();
 		dialog.setTitle("Message");
 		dialog.setModal(true);
