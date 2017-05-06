@@ -6,28 +6,23 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import game.GameInfo;
-import game.GameListener;
+import game.GameEventHandler;
 import game.Grid;
-import inet.Client;
 import inet.NetworkHandler;
-import inet.Server;
 
 public class MainWindow extends JFrame{
 	private Grid grid;
 	private NetworkHandler handler;
-	private GameListener listener;
+	private GameEventHandler listener;
 	
 	private JButton StartButton=new JButton("START");
 	private JButton LoginButton=new JButton("LOGIN");
@@ -35,7 +30,7 @@ public class MainWindow extends JFrame{
 	private static final String[] colors = {"MAGENTA","BLUE","RED","PINK","YELLOW","ORANGE"};
 	private JComboBox colorBox = new JComboBox(colors);
 	
-	public MainWindow(NetworkHandler handler, GameListener listener, Grid grid){
+	public MainWindow(NetworkHandler handler, GameEventHandler listener, Grid grid){
 		this.handler = handler;
 		this.listener = listener;
 		this.grid = grid;
@@ -95,7 +90,10 @@ public class MainWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				handler.startServer();
-				listener.onGameSetup();
+				listener.onGameSetup(
+						TextName.getText(), 
+						getColor(colorBox.getSelectedItem().toString())
+				);
 			}
 			
 		});
@@ -117,5 +115,21 @@ public class MainWindow extends JFrame{
 		add(title, BorderLayout.NORTH);
 	    add(SETPanel, BorderLayout.CENTER);
 	    add(ButtonPanel, BorderLayout.SOUTH);
+	}
+	
+	private Color getColor(String name) {
+		switch (name) {
+			case "MAGENTA":
+				return Color.MAGENTA;
+			case "RED":
+				return Color.RED;
+			case "PINK":
+				return Color.PINK;
+			case "YELLOW":
+				return Color.YELLOW;
+			case "ORANGE":
+				return Color.ORANGE;
+		}
+		return Color.BLACK;
 	}
 }

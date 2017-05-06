@@ -17,7 +17,7 @@ import inet.NetworkNode;
 import inet.Payload;
 import inet.Server;
 
-public class GameHandler implements NetworkHandler, GameListener{
+public class GameHandler implements NetworkHandler, GameEventHandler{
 	private NetworkNode network_node;
 	
 	private MainWindow mw;
@@ -95,9 +95,9 @@ public class GameHandler implements NetworkHandler, GameListener{
 	}
 
 	@Override
-	public void onGameSetup() {
+	public void onGameSetup(String playerName, Color stoneColor) {
 		round = 0;
-		me = new Player("Player 1", Color.RED, 1); //local setup
+		me = new Player(playerName, stoneColor, 1); //local setup
 		opp = new Player("Player 2", Color.YELLOW, 2); //onClientConnect
 		grid.setHandler(this);
 		GameBoard gb = new GameBoard(grid, null);
