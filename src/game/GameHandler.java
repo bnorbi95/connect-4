@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.net.SocketException;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -59,6 +60,8 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 			public void run() {
 				try {
 					((Server) network_node).startGameServer(me);
+				} catch (SocketException e) {
+					//Server stopped by closing waiting window
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Network error, unable to connect");
 				}
@@ -144,7 +147,8 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	@Override
 	public void onWaitinForPlayer() {
 		waitingWindow = new JOptionPane("Waiting for other player...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-		WindowListener wlisten = new WindowListener() {
+		dialog = new JDialog();
+		dialog.addWindowListener(new WindowListener() {
 
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -161,6 +165,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
+				((Server)network_node).close();
 				
 			}
 
@@ -188,12 +193,10 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 				
 			}
 			
-		};
-		dialog = new JDialog();
+		});
 		dialog.setTitle("Message");
 		dialog.setModal(true);
 		dialog.setContentPane(waitingWindow);
-		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		dialog.pack();
 		dialog.setVisible(true);
 	}

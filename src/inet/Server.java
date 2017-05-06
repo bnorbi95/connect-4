@@ -2,6 +2,7 @@ package inet;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.SocketException;
 
 import game.Player;
 
@@ -26,6 +27,16 @@ public class Server extends NetworkNode{
 		outstream.flush();
 	}
 
+	
+	public void close() {
+		try {
+			ssocket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	protected void initializeSocket() throws IOException {
 			ssocket = new ServerSocket(port);
