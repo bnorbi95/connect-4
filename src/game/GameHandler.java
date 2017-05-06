@@ -116,6 +116,8 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 		GameBoard gb = new GameBoard(grid, null);
 		gw = new GameWindow(gb, me, opp);
 		gb.setWindow(gw);
+		gb.initGameCells();
+
 		if(gw.getMe().getRole() == 1)
 			setDisabled(false);
 		if(gw.getMe().getRole() == 2)

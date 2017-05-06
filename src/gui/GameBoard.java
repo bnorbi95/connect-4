@@ -20,7 +20,9 @@ public class GameBoard extends JPanel{
 	public GameBoard(Grid grid, GameWindow window){
 		this.grid = grid;
 		this.window = window;
-		
+	}
+	
+	public void initGameCells() {
 		GameInfo info = getGrid().getGameInfo();
 		setLayout(new GridLayout(info.height, info.width, 0, 0));
 		for(int y = info.height - 1; y >= 0; y--){
