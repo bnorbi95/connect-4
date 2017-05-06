@@ -11,15 +11,17 @@ public class Cell {
 	
 	private boolean highlight;
 	
-	public int column;
+	private int column;
+	private int row;
 	
-	public Cell(int status, int column){
+	public Cell(int status, int column, int row){
 		this.status = status;
 		this.column = column;
+		this.row = row;
 	}
 	
-	public Cell(int column){
-		this(Cell.EMPTY, column);
+	public Cell(int column, int row){
+		this(Cell.EMPTY, column, row);
 	}
 	
 	boolean isEmpty(){
@@ -28,6 +30,14 @@ public class Cell {
 	
 	void setEmpty(){
 		status = Cell.EMPTY;
+	}
+	
+	public int getColumn(){
+		return column;
+	}
+	
+	public int getRow(){
+		return row;
 	}
 
 	public int getStatus(){
