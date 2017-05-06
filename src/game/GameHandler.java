@@ -148,12 +148,11 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	@Override
 	public void onGameEnd(Player winner) {
 		if(winner == me){
-		JOptionPane.showMessageDialog(null, "You Won!");
-		System.exit(0);
+			JOptionPane.showMessageDialog(null, "You Won!");
 		}
 		else{
-		JOptionPane.showMessageDialog(null, "You Lost!");
-		System.exit(0);	
+			JOptionPane.showMessageDialog(null, "You Lost!");
 		}
+		System.exit(0);
 	}
 }
