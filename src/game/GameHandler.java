@@ -108,6 +108,13 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 		}
 		gw.repaint();
 	}
+	
+	@Override
+	public void onSendPayload(Payload pl) {
+		network_node.sendPayload(pl);
+		//wait for opponent
+		waitForInput();	
+	}
 
 	@Override
 	public void onGameSetup() {
@@ -120,8 +127,11 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 
 		if(gw.getMe().getRole() == 1)
 			setDisabled(false);
-		if(gw.getMe().getRole() == 2)
+		if(gw.getMe().getRole() == 2) {
 			setDisabled(true);
+			waitForInput();
+		}
+			
 	}
 	
 	public int getRound(){
@@ -144,6 +154,23 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	public void onSetupLocalPlayer(String playerName, Color stoneColor, int role) {
 		me = new Player(playerName, stoneColor, role);
 	}
+  
+	private void waitForInput() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					network_node.recvPayload();
+					Thread.currentThread().interrupt();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+			
+		}).start();	
+  }
 
 	@Override
 	public void onGameEnd(Player winner) {

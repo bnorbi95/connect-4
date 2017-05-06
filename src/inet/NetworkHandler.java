@@ -5,4 +5,5 @@ public interface NetworkHandler {
 	public void startClient();
 	public void onRecvPayload(Payload pl);
 	public void onRecvPlayerData(PayloadConfig pl);
+	public void onSendPayload(Payload pl);
 }
