@@ -114,6 +114,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 		GameBoard gb = new GameBoard(grid, null);
 		gw = new GameWindow(gb, me, opp);
 		gb.setWindow(gw);
+		gb.initGameCells();
 	}
 	
 	public int getRound(){

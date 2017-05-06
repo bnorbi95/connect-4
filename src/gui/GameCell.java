@@ -16,9 +16,6 @@ import inet.Payload;
 import util.Style;
 
 public class GameCell extends JPanel implements MouseListener{
-	private final static Color STONE_PLAYER1 = Color.white;
-	private final static Color STONE_PLAYER2 = Color.black;
-	
 	private Cell cell;
 	private GameBoard board;
 	private Color stone_player_1;
