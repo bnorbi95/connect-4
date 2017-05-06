@@ -6,11 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< c8a82c3b35be23db75b9781508621cd42f8a96cf
 import java.lang.reflect.Field;
-=======
-import java.util.logging.Handler;
->>>>>>> WindowListener in GameWindow for closing, added statusbar
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
