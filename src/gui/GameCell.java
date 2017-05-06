@@ -13,11 +13,9 @@ import exceptions.InvalidColumnException;
 import exceptions.InvalidPlayerIdException;
 import game.Cell;
 import inet.Payload;
+import util.Style;
 
 public class GameCell extends JPanel implements MouseListener{
-	private final static Color DEFAULT_BACKGROUND = Color.blue;
-	private final static Color HIGHLIGHTED_BACKGROUND = Color.cyan;
-	private final static Color STONE_EMPTY = Color.red;
 	private final static Color STONE_PLAYER1 = Color.white;
 	private final static Color STONE_PLAYER2 = Color.black;
 	
@@ -39,23 +37,18 @@ public class GameCell extends JPanel implements MouseListener{
     protected void paintComponent(Graphics g) {
       super.paintComponent(g);
       if(!cell.isHighlighted())
-      {
-      g.setColor(DEFAULT_BACKGROUND);
-      g.fillRect(0, 0, this.getWidth(), this.getHeight());
-      }
+	      g.setColor(Style.CELL_DEFAULT_BACKGROUND);
       else
-      {
-      g.setColor(HIGHLIGHTED_BACKGROUND);
-      g.fillRect(0, 0, this.getWidth(), this.getHeight());     
-      }
+	      g.setColor(Style.CELL_HIGHLIGHTED_BACKGROUND);     
+      g.fillRect(0, 0, this.getWidth(), this.getHeight());
       
       float size = 0.8f;
       if(getCell().getStatus() == 0)
-      g.setColor(STONE_EMPTY);
+    	  g.setColor(Style.STONE_EMPTY);
       else if(getCell().getStatus() == 1)
-      g.setColor(STONE_PLAYER1);
+    	  g.setColor(STONE_PLAYER1);
       else if(getCell().getStatus() == 2)
-      g.setColor(STONE_PLAYER2);
+    	  g.setColor(STONE_PLAYER2);
       g.fillArc((int)((1.0f-size)*this.getWidth()/2),
     		  (int)((1.0f-size)*this.getHeight()/2), 
     		  (int)(size*this.getWidth()),

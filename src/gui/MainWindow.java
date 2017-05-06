@@ -19,17 +19,16 @@ import game.GameEventHandler;
 import game.Grid;
 import inet.NetworkHandler;
 import util.ColorConverter;
+import util.Style;
 
 public class MainWindow extends JFrame{
 	private Grid grid;
 	private NetworkHandler handler;
 	private GameEventHandler listener;
 	
-	private JButton StartButton=new JButton("START");
-	private JButton LoginButton=new JButton("LOGIN");
 	private JTextField TextName=new JTextField();
-	private static final String[] colors = {"MAGENTA","BLUE","RED","PINK","YELLOW","ORANGE"};
-	private JComboBox colorBox = new JComboBox(colors);
+	private static final String[] colors = ColorConverter.ALL_COLORS;
+	private JComboBox<String> colorBox = new JComboBox<String>(colors);
 	
 	public MainWindow(NetworkHandler handler, GameEventHandler listener, Grid grid){
 		this.handler = handler;
@@ -52,32 +51,32 @@ public class MainWindow extends JFrame{
 		
 		JLabel title = new JLabel("Connect Four");
 		title.setOpaque(true);
-		title.setFont(new Font("Times", Font.ITALIC, 20));
-		title.setBackground(Color.RED);
+		title.setFont(Style.GAME_TITLE_FONT);
+		title.setBackground(Style.MAIN_TITLE_BACKGROUND);
 		
 		JLabel setting = new JLabel("Add your name and the color of your stone!");
 		setting.setOpaque(true);
-		setting.setFont(new Font("Times", Font.ITALIC, 12));
-		setting.setBackground(Color.GRAY);
+		setting.setFont(Style.MAIN_SETTINGS_FONT);
+		setting.setBackground(Style.MAIN_SETTINGS_BACKGROUND);
 		
 	    JPanel SetPanel=new JPanel(new GridLayout(2,2,5,5)); 
 		
 	    JLabel name = new JLabel("Name:");
 		name.setOpaque(true);
 		name.setFont(new Font("Times", Font.ITALIC, 20));
-		name.setBackground(Color.BLUE);
+		name.setBackground(Style.MAIN_NAME_BACKGROUND);
 	    
 		JLabel color = new JLabel("Color of your stone:");
 		color.setOpaque(true);
-		color.setFont(new Font("Times", Font.ITALIC, 20));
-		color.setBackground(Color.BLUE);
+		color.setFont(Style.MAIN_COLOR_FONT);
+		color.setBackground(Style.MAIN_COLOR_BACKGROUND);
 		
 		SetPanel.add(name);
 	    SetPanel.add(TextName);
 	    SetPanel.add(color);
 		
-	    colorBox.setForeground(Color.red);
-		colorBox.setBackground(Color.white);
+	    colorBox.setForeground(Style.MAIN_COLORBOX_FOREGROUND);
+		colorBox.setBackground(Style.MAIN_COLORBOX_BACKGROUND);
 		colorBox.setSelectedItem("RED");
 		SetPanel.add(colorBox);
 		
