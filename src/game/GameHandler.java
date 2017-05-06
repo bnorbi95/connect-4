@@ -1,8 +1,12 @@
 package game;
 
 import java.awt.Color;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.net.SocketException;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import exceptions.ColumnIsFullException;
@@ -35,6 +39,8 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	private int round;
 	
 	private boolean disabled = false;
+	private JOptionPane waitingWindow;
+	private JDialog dialog;
 	
 	public GameHandler() {
 		info = new GameInfo();
@@ -54,9 +60,10 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 			public void run() {
 				try {
 					((Server) network_node).startGameServer(me);
+				} catch (SocketException e) {
+					//Server stopped by closing waiting window
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Network error, unable to connect");
 				}
 			}
 			
@@ -73,8 +80,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 				try {
 					((Client) network_node).connect(me);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Network error, unable to connect");
 				}
 			}
 			
@@ -85,6 +91,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	public void onRecvPlayerData(PayloadConfig pl) {
 		opp = new Player(pl.getName(), ColorConverter.getColor(pl.getColor()), pl.getPlayerID());
 		onGameSetup();
+		
 	}
 
 	/**
@@ -160,5 +167,63 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 			JOptionPane.showMessageDialog(null, "You Lost!");
 		}
 		System.exit(0);
+	}
+
+	@Override
+	public void onWaitinForPlayer() {
+		waitingWindow = new JOptionPane("Waiting for other player...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+		dialog = new JDialog();
+		dialog.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				((Server)network_node).close();
+				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		dialog.setTitle("Message");
+		dialog.setModal(true);
+		dialog.setContentPane(waitingWindow);
+		dialog.pack();
+		dialog.setLocationRelativeTo(null);
+		dialog.setVisible(true);
 	}
 }

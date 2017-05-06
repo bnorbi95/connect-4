@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
+
+import javax.swing.JOptionPane;
 
 public abstract class NetworkNode {
 	protected int port;
@@ -23,17 +26,12 @@ public abstract class NetworkNode {
 		this.handler = handler;
 	}
 	
-	protected abstract void initializeSocket();
+	protected abstract void initializeSocket() throws UnknownHostException, IOException;
 	
-	protected void createIOStreams() {
-		try {
-			initializeSocket();
-			outstream = new PrintWriter(socket.getOutputStream());
-			instream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected void createIOStreams() throws UnknownHostException, IOException {
+		initializeSocket();
+		outstream = new PrintWriter(socket.getOutputStream());
+		instream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 	
 	public void sendPayload(Payload pl) {

@@ -2,6 +2,7 @@ package inet;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.SocketException;
 
 import game.Player;
 
@@ -27,15 +28,19 @@ public class Server extends NetworkNode{
 		doMainLoop();
 	}
 
-	@Override
-	protected void initializeSocket() {
+	
+	public void close() {
 		try {
-			ssocket = new ServerSocket(port);
-			socket = ssocket.accept();
+			ssocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+	
+	@Override
+	protected void initializeSocket() throws IOException {
+			ssocket = new ServerSocket(port);
+			socket = ssocket.accept();
 	}
 }
