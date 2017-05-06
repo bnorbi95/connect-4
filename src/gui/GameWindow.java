@@ -55,6 +55,7 @@ public class GameWindow extends JFrame {
 		
 		setSize(info.width*CELLWIDTH + SHOW_PANEL_WIDTH, info.height*CELLWIDTH + 20);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setVisible(true);
 	}
 	
