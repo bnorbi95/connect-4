@@ -55,8 +55,11 @@ public class GameWindow extends JFrame{
 		showPanelContainer.add(showPanel);
 		showPanelContainer.setPreferredSize(new Dimension(SHOW_PANEL_WIDTH, 0));
 		
-		statusbar = new JLabel("Current player: ");
-		
+		if(getMe().getRole() == 1)
+			statusbar = new JLabel("Current player: " + getMe().getName());
+		else
+			statusbar = new JLabel("Current player: " + getOpp().getName());
+			
 		add(showPanelContainer, BorderLayout.EAST);
 		add(title, BorderLayout.NORTH);
 		add(gameBoard, BorderLayout.CENTER);
