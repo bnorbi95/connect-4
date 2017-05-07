@@ -109,46 +109,46 @@ public class Grid {
 		// goes through board horizontally
 		for (int i = (-1) * getGameInfo().streak + 1; i < getGameInfo().streak; i++) {
 			if (x + i >= 0 && x + i < getGameInfo().width){
-				if (data[y][x + i].getStatus() == playerID)
+				if (data[y][x + i].getStatus() == playerID) {
 					count++;
+					if (count >= getGameInfo().streak)
+						flagHorizontal = true;
+				}
 				else {
 					count = 0;
 				}
 			}
 		}
 
-		if (count >= getGameInfo().streak)
-			flagHorizontal = true;
-
 		boolean flagDiagonallyUp = false;
 		count = 0;
 
 		for (int i = (-1) * getGameInfo().streak + 1; i < getGameInfo().streak; i++) {
-			if (x + i >= 0 && x + i < getGameInfo().width && y + i > 0 && y + i < getGameInfo().height)
-				if (data[y + i][x + i].getStatus() == playerID)
+			if (x + i >= 0 && x + i < getGameInfo().width && y + i >= 0 && y + i < getGameInfo().height)
+				if (data[y + i][x + i].getStatus() == playerID) {
 					count++;
+					if (count >= getGameInfo().streak)
+						flagDiagonallyUp = true;
+				}
 				else {
 					count = 0;
 				}
 		}
-
-		if (count >= getGameInfo().streak)
-			flagDiagonallyUp = true;
 
 		boolean flagDiagonallyDown = false;
 		count = 0;
 
 		for (int i = (-1) * getGameInfo().streak + 1; i < getGameInfo().streak; i++) {
-			if (x + i >= 0 && x + i < getGameInfo().width && y - i > 0 && y - i < getGameInfo().height)
-				if (data[y - i][x + i].getStatus() == playerID)
+			if (x + i >= 0 && x + i < getGameInfo().width && y - i >= 0 && y - i < getGameInfo().height)
+				if (data[y - i][x + i].getStatus() == playerID) {
 					count++;
+					if (count >= getGameInfo().streak)
+						flagDiagonallyDown = true;
+				}
 				else {
 					count = 0;
 				}
 		}
-
-		if (count >= getGameInfo().streak)
-			flagDiagonallyDown = true;
 		
 		
 		boolean flag = flagHorizontal || flagVertical || flagDiagonallyUp || flagDiagonallyDown;
