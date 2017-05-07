@@ -67,11 +67,13 @@ public class GameCell extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent arg0) {
 		if(!board.getGrid().getGameHandler().getDisabled()){
 			try {
+				// Places a stone in the clicked column, if player is not disabled
 				Cell lastCell = board.getGrid().placeToColumn(
 						getCell().getColumn(), 
 						board.getWindow().getMe().getRole());
 				board.getGrid().getGameHandler().increaseRound();
 				
+				// Sends payload to other player, and gives him the right to put a new stone
 				Payload pl = new Payload(
 					board.getGrid().getGameHandler().getRound(), 
 					board.getWindow().getMe().getRole(),
@@ -84,6 +86,7 @@ public class GameCell extends JPanel implements MouseListener{
 				board.getWindow().getStatusbar().setText("Current player: " + board.getWindow().getOpp().getName());
 				board.repaint();
 				
+				// Checks if the newly put stone creates a streak and the game ends 
 				if(board.getGrid().checkForWin(lastCell))
 				{
 					board.getGrid().getGameHandler().onGameEnd(board.getWindow().getMe());
@@ -101,6 +104,7 @@ public class GameCell extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		// Highlights entered column, if player is not disabled
 		if(!board.getGrid().getGameHandler().getDisabled()){
 		board.highlightColumn(getCell().getColumn(), true);
 		board.repaint();
@@ -109,6 +113,7 @@ public class GameCell extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// Stops highlighting exited column 
 		if(!board.getGrid().getGameHandler().getDisabled()){
 		board.highlightColumn(getCell().getColumn(), false);
 		board.repaint();

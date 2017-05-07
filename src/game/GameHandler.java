@@ -190,7 +190,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
+				// Closes network when window is closed
 				((Server)network_node).close();
 				
 			}

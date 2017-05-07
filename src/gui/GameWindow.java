@@ -55,6 +55,7 @@ public class GameWindow extends JFrame{
 		showPanelContainer.add(showPanel);
 		showPanelContainer.setPreferredSize(new Dimension(SHOW_PANEL_WIDTH, 0));
 		
+		// Statusbar shows current player on starting game
 		if(getMe().getRole() == 1)
 			statusbar = new JLabel("Current player: " + getMe().getName());
 		else

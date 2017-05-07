@@ -41,6 +41,7 @@ public class GameBoard extends JPanel{
 	}
 	
 	public void highlightColumn(int column, boolean highlight){
+		// Highlights hole column, used when hovering on Cell
 		for(int y = 0; y < getGrid().getGameInfo().height; y++)
 		{
 			getGrid().getCell(column, y).setHighlighted(highlight);
