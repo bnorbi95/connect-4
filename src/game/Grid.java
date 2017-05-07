@@ -124,7 +124,7 @@ public class Grid {
 		count = 0;
 
 		for (int i = (-1) * getGameInfo().streak + 1; i < getGameInfo().streak; i++) {
-			if (x + i >= 0 && x + i < getGameInfo().width && y + i > 0 && y + i < getGameInfo().height)
+			if (x + i >= 0 && x + i < getGameInfo().width && y + i >= 0 && y + i < getGameInfo().height)
 				if (data[y + i][x + i].getStatus() == playerID) {
 					count++;
 					if (count >= getGameInfo().streak)
@@ -139,7 +139,7 @@ public class Grid {
 		count = 0;
 
 		for (int i = (-1) * getGameInfo().streak + 1; i < getGameInfo().streak; i++) {
-			if (x + i >= 0 && x + i < getGameInfo().width && y - i > 0 && y - i < getGameInfo().height)
+			if (x + i >= 0 && x + i < getGameInfo().width && y - i >= 0 && y - i < getGameInfo().height)
 				if (data[y - i][x + i].getStatus() == playerID) {
 					count++;
 					if (count >= getGameInfo().streak)
