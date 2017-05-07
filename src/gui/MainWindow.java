@@ -96,6 +96,7 @@ public class MainWindow extends JFrame{
 				);
 				handler.startServer();
 				handler.onWaitinForPlayer();
+				setVisible(false);
 			}
 			
 		});

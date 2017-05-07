@@ -89,6 +89,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 	
 	@Override
 	public void onRecvPlayerData(PayloadConfig pl) {
+		if(network_node instanceof Server) dialog.dispose();
 		opp = new Player(pl.getName(), ColorConverter.getColor(pl.getColor()), pl.getPlayerID());
 		onGameSetup();
 		
