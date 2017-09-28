@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import exceptions.ColumnIsFullException;
+import exceptions.GridIsFullException;
 import exceptions.InvalidColumnException;
 import exceptions.InvalidPlayerIdException;
 import game.Cell;
@@ -95,6 +96,9 @@ public class GameCell extends JPanel implements MouseListener{
 				JOptionPane.showMessageDialog(null, "Invalid column");
 			} catch (ColumnIsFullException e) {
 				JOptionPane.showMessageDialog(null, "That column is already full!");
+			} catch (GridIsFullException e) {
+				JOptionPane.showMessageDialog(null, "The grid is full. It's Draw!");
+				System.exit(0);
 			} catch (InvalidPlayerIdException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

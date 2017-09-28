@@ -1,6 +1,7 @@
 package game;
 
 import exceptions.ColumnIsFullException;
+import exceptions.GridIsFullException;
 import exceptions.InvalidColumnException;
 import exceptions.InvalidPlayerIdException;
 
@@ -58,6 +59,17 @@ public class Grid {
 		return !data[info.height-1][column].isEmpty();
 	}
 	
+	private boolean isGridFull(){
+		boolean full = false;
+		for(int i = 0; i < info.width; i++){
+			if (isColumnFull(i)){
+				full = true;
+			}
+			else full = false;
+		}
+		return full;
+	}
+	
 	/**
 	 * Alters data field, places stone to column.
 	 * @param column number of column (starting from 0, counting from left ot right)
@@ -65,24 +77,29 @@ public class Grid {
 	 * @return Modified cell
 	 * @throws InvalidColumnException if column number is out of bounds
 	 * @throws ColumnIsFullException if column is full
+	 * @throws GridIsFullException if grid is full
 	 */
-	public Cell placeToColumn(int column, int playerId) throws InvalidColumnException, ColumnIsFullException, InvalidPlayerIdException{
+	public Cell placeToColumn(int column, int playerId) throws InvalidColumnException, ColumnIsFullException, InvalidPlayerIdException, GridIsFullException{
 		if(isValidColumn(column)){
 			if(!isColumnFull(column)){
-				int i = 0;
-				while(!data[i][column].isEmpty()){
-					i++;
+				if(!isGridFull()){
+					int i = 0;
+					while(!data[i][column].isEmpty()){
+						i++;
+					}
+					data[i][column].setPlayer(playerId);
+					return data[i][column];
+				}else{
+					throw new GridIsFullException();
 				}
-				data[i][column].setPlayer(playerId);
-				return data[i][column];
 			}else{
 				throw new ColumnIsFullException(column);
-			}
+				}
 		}else{
 			throw new InvalidColumnException(column, info.width);
+			}
 		}
-	}
-	
+
 	/**
 	 * Checks if last placed stone won the game. If yes, the winner is the owner of the last placed stone.
 	 * @param last Cell of the last placed stone. Can be aquired using return value of placeToColumn(int column)

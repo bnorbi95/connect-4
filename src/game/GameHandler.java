@@ -10,6 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import exceptions.ColumnIsFullException;
+import exceptions.GridIsFullException;
 import exceptions.InvalidColumnException;
 import exceptions.InvalidPlayerIdException;
 import gui.GameBoard;
@@ -110,7 +111,7 @@ public class GameHandler implements NetworkHandler, GameEventHandler{
 			{
 				onGameEnd(opp);
 			}
-		} catch (InvalidColumnException | ColumnIsFullException | InvalidPlayerIdException e) {
+		} catch (InvalidColumnException | GridIsFullException | ColumnIsFullException | InvalidPlayerIdException e) {
 			//other player gets the error message
 			e.printStackTrace();
 		}
